@@ -9,24 +9,16 @@ import Link from "next/link"
 import { Brain, Zap, Shield, Users } from "lucide-react"
 
 export default function HomePage() {
-  const [isLoading, setIsLoading] = useState(true)
+  // NOTE: Authentication check is temporarily disabled for development/testing.
+  // Set isLoading to false to skip loading state.
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
+  // NOTE: Authentication is intentionally bypassed. The app will
+  // navigate directly to the main chat interface on load.
   useEffect(() => {
-    const checkAuth = async () => {
-      const supabase = createClient()
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-
-      if (user) {
-        router.push("/chat")
-      } else {
-        setIsLoading(false)
-      }
-    }
-
-    checkAuth()
+    // Replace auth check with direct navigation to the chat page.
+    router.replace("/chat")
   }, [router])
 
   if (isLoading) {
@@ -142,3 +134,4 @@ export default function HomePage() {
     </div>
   )
 }
+  
